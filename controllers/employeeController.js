@@ -132,7 +132,7 @@ const getEmployees = async (req, res) => {
 };
 
 const addEmployee = async (req, res) => {
-  const { employee_id, delegate_id, first_name, last_name } = req.body;
+  const { employee_id, delegate_id, first_name, last_name, active } = req.body;
 
   if (!employee_id || !delegate_id || !first_name || !last_name) {
     return res.status(400).send("Missing required fields");
@@ -143,7 +143,7 @@ const addEmployee = async (req, res) => {
 
     await employeeIdsCollection.insertOne({ employee_id, delegate_id });
     await learningHistoryCollection.insertOne({
-      found: "true",
+      found: active.toString(),
       delegate_id,
       first_name,
       last_name,
