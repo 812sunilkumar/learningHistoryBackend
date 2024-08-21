@@ -138,8 +138,8 @@ const getCourseCode = async (req, res) => {
     
         // Extract all course codes from learning history
         const courseCodes = learningHistory.flatMap(employee => 
-          employee.records.map(record => record.course_code)
-        );
+            Array.isArray(employee.records) ? employee.records.map(record => record.course_code) : []
+          );          
     
         // Get unique course codes
         const uniqueCourseCodes = [...new Set(courseCodes)];
